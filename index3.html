@@ -6,25 +6,68 @@
 	    <script type="text/javascript">
 	        var options, chart, data, initData, resultTotal;
 
-	        initData = [['Año', 'Totales','Twitter','Facebook'],['2004',  1080, 1307, 1212],['2005', 1170, 1193, 1492],['2006',  660, 1782, 1598],['2007',  1030, 1982, 1110]],
+	        initData = [
+                        ['Ano', 'Totales','Twitter','Facebook'],
+                        ['2004',  1080, 1307, 1212],
+                        ['2005', 1170, 1193, 1492],
+                        ['2006',  660, 1782, 1598],
+                        ['2007',  1030, 1982, 1110]
+                       ],
 	        resultTotal = [];
 
 
 	    	google.load("visualization", "1", {packages:["corechart"],callback : function(){
 
-				 	options = {width: 400,height: 240,vAxis: {minValue:0, maxValue:100},animation: {duration: 1000,easing: 'in'}};
+				 	options = {
+                        width: 400,
+                        height: 240,
+                        vAxis: {
+                            title: 'vAxis',
+                            minValue:0, 
+                            maxValue:100
+                        },
+                        hAxis: {
+                            textPosition: 'none',
+                            gridlines: {
+                                color: '#CCCCCC'
+                            },
+                            baselineColor: '#CCCCCC'
+                        },
+                        animation: {
+                            duration: 1000,
+                            easing: 'in'
+                        },
+                        series: [
+                            {
+                                color: 'black', 
+                                visibleInLegend: false,
+                                targetAxisIndex: 0
+                            },
+                            {
+                                color: 'blue', 
+                                visibleInLegend: false,
+                                targetAxisIndex: 1
+                            },
+                            {
+                                color: 'green', 
+                                visibleInLegend: false,
+                                targetAxisIndex: 2
+                            }]
+                    };
 
 				    chart = new google.visualization.LineChart(document.getElementById('visualization'));
-				    data = google.visualization.arrayToDataTable(initData);
+				    //data = google.visualization.arrayToDataTable(initData);
 
-				    chart.draw(data, options);
+				   // chart.draw(data, options);
+                    $("input[type=checkbox]").click(function(){
+                        onCheck();
+                    });
 
-			   		$("input[type=checkbox]").click(function(){
+                    var onCheck = function(){
 					    resultTotal = [];
 					    resultTotal.push(getColumn(0));
 					    getResults();
-					});
-
+                    };
 					var getResults = function(){
 					    //recolectar los values del check
 					    $("input[type=checkbox]:checked").each(function(i, e){
@@ -69,8 +112,7 @@
 					    };
 					    return _result;
 					};
-
-
+                    onCheck();
 	    	}}); // load
 
 		</script>
